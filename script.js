@@ -1,6 +1,7 @@
-// keep track of score
+// keep track of score and round
 let humanScore = 0;
 let computerScore = 0;
+let round = 0;
 
 // get a random value x [0, 1], and return rock, paper or scissors base on the value
 function getComputerChoice() {
@@ -15,41 +16,59 @@ function getComputerChoice() {
 
 // console.log(getComputerChoice());
 
-// get the human choice using prompt and return it
+// get the human choice using prompt; put the prompt to lower case; return it if it match
 function getHumanChoice() {
-    const choice = window.prompt("Choose between rock, paper or scissors.");
+    let choice = prompt("Choose between rock, paper or scissors.").toLowerCase();
+    while (choice !== "rock" && choice !== "paper" && choice !== "scissors") {
+        choice = prompt("Invalid input. Please enter rock, paper or scissors").toLowerCase();
+    }
     return choice;
 }
 
 // console.log(getHumanChoice());
 
+// get human and computer value. change human value to lower so always match
+// check who win and print winner
+// update score and print
 function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
-    // console.log(humanChoice);
-    if (humanChoice == computerChoice) {
-        console.log("It's thigh")
-    } else if (humanChoice == "rock" && computerChoice == "scissors") {
-        console.log("You Won! Rock beats Scissors");
+    if (humanChoice === computerChoice) {
+        console.log(`The computer chose ${computerChoice} and you chose ${humanChoice}. It's a draw`)
+    } else if (humanChoice === "rock" && computerChoice === "scissors") {
+        console.log(`The computer chose ${computerChoice}, and you chose ${humanChoice}. You Won! Rock beats Scissors`);
         humanScore++;
-    } else if (humanChoice == "scissors" && computerChoice == "paper") {
+    } else if (humanChoice === "scissors" && computerChoice === "paper") {
         console.log("You won! Scissors beats Paper");
         humanScore++;
-    } else if (humanChoice == "paper" && computerChoice == "rock") {
-        console.log("You won! Paper beats Rock");
+    } else if (humanChoice === "paper" && computerChoice === "rock") {
+        console.log(`The computer chose ${computerChoice}, and you chose ${humanChoice}. You won! Paper beats Rock`);
         humanScore++;
-    } else if (computerChoice == "rock" && humanChoice == "scissors") {
-        console.log("You lost! Rock beats Scissors");
+    } else if (computerChoice === "rock" && humanChoice === "scissors") {
+        console.log(`The computer chose ${computerChoice}, and you chose ${humanChoice}. You lost! Rock beats Scissors`);
         computerScore++;
-    } else if (computerChoice == "scissors" && humanChoice == "paper") {
-        console.log("You lost! Scissors beats paper");
+    } else if (computerChoice === "scissors" && humanChoice === "paper") {
+        console.log(`The computer chose ${computerChoice}, and you chose ${humanChoice}. You lost! Scissors beats paper`);
         computerScore++;
-    } else if (computerChoice == "paper" && humanChoice == "rock") {
-        console.log("You lost! Paper beats rock");
+    } else if (computerChoice === "paper" && humanChoice === "rock") {
+        console.log(`The computer chose ${computerChoice}, and you chose ${humanChoice}. You lost! Paper beats rock`);
         computerScore++;
     }
+    console.log(`Human score: ${humanScore}\nComputer score: ${computerScore}`);
 }
 
-let humanSelection = getHumanChoice();
-let computerSelection = getComputerChoice();
+// playRound(humanSelection, computerSelection);
 
-playRound(humanSelection, computerSelection);
+// do the game for 5 round. Get the human and computer value for each round and play the round
+// give thhe final winner
+function playGame() {
+    while (round < 6) {
+        const humanSelection = getHumanChoice();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+        round++;
+    }
+    if (humanScore > computerScore) {
+        console.log("You have won the game!")
+    } else console.log("You have lost the game :(")
+}
+
+playGame();
