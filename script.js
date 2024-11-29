@@ -1,7 +1,7 @@
 // keep track of score and round
 let humanScore = 0;
 let computerScore = 0;
-let round = 0;
+let round = humanScore + computerScore;
 
 // get a random value x [0, 1], and return rock, paper or scissors base on the value
 function getComputerChoice() {
